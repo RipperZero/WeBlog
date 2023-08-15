@@ -2,10 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!--声明父模块-->
     <parent>
         <groupId>com.quanxiaoha</groupId>
         <artifactId>weblog-springboot</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.quanxiaoha</groupId>
@@ -14,25 +16,44 @@
     <name>weblog-web</name>
     <description>weblog-web</description>
 
+    <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
     <dependencies>
+        <!-- 引入weblog-module-common模块-->
         <dependency>
             <groupId>com.quanxiaoha</groupId>
             <artifactId>weblog-module-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!-- 引入weblog-module-admin模块-->
         <dependency>
             <groupId>com.quanxiaoha</groupId>
             <artifactId>weblog-module-admin</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!-- 引入weblog-module-jwt模块-->
         <dependency>
             <groupId>com.quanxiaoha</groupId>
             <artifactId>weblog-module-jwt</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- markdown 文件解析包 -->
@@ -43,14 +64,51 @@
     </dependencies>
 
     <build>
+        <defaultGoal>compile</defaultGoal>
+        <finalName>weblog-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 指定该Main Class为全局的唯一入口-->
+                    <!-- 单入口 SpringBoot会自动扫描 可以不指定-->
+                    <mainClass>com.quanxiaoha.weblog.web.WeblogWebApplication</mainClass>
+                    <!-- 配置为ZIP会导致路径识别出错 -->
+                    <!-- <layout>ZIP</layout> -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <!--可以把依赖的包都打包到生成的Jar/War包中-->
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
+            <!-- @see https://zhuanlan.zhihu.com/p/478905946 -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>${project.build.finalName}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <WAR_FILE_NAME>${project.build.finalName}</WAR_FILE_NAME>
+                        <WAR_FILE_PATH>target/${project.build.finalName}.war</WAR_FILE_PATH>
+                    </buildArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -85,7 +85,6 @@ import { useRouter } from 'vue-router'
 import { ref, reactive } from 'vue'
 import { useFullscreen } from '@vueuse/core'
 import { updateAdminPassword } from '@/api/admin/user'
-import { times } from 'lodash'
 
 const { isFullscreen, toggle } = useFullscreen()
 

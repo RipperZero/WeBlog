@@ -28,6 +28,7 @@
     "moment": "^2.29.4",
     "universal-cookie": "^4.0.4",
     "v-viewer": "^3.0.11",
+    "viewerjs": "^1.11.4",
     "vue": "^3.2.47",
     "vue-highlightjs": "^1.3.3",
     "vue-router": "^4.1.6",
