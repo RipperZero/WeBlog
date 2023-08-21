@@ -476,7 +476,7 @@ const form = reactive({
   id: null,
   title: "",
   content: "请输入内容",
-  titleImage: "/src/assets/yahaha.jpg",
+  titleImage: "/yahaha.png",
   categoryId: null,
   tags: [],
   description: "",

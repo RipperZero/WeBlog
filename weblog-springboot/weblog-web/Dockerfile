@@ -8,8 +8,10 @@ FROM base AS build-stage
 WORKDIR /app
 
 # default value is in pom.xml
-ARG WAR_FILE_PATH
-ARG WAR_FILE_NAME
+#ARG WAR_FILE_PATH
+#ARG WAR_FILE_NAME
+ARG WAR_FILE_PATH=target/weblog-web.war
+ARG WAR_FILE_NAME=weblog-web
 
 ENV WAR_FILE=${WAR_FILE_NAME}.war
 

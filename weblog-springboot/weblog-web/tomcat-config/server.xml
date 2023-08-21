@@ -168,6 +168,24 @@
 
       <!-- <Context docBase="../webapps/weblog-web" path="" /> -->
       <Context docBase="weblog-web" path="" />
+<!--        <Context docBase="weblog-web" path="">-->
+<!--          <Filter>-->
+<!--            <FilterName>CorsFilter</FilterName>-->
+<!--            <FilterClass>org.apache.catalina.filters.CorsFilter</FilterClass>-->
+<!--            <InitParam>-->
+<!--              <ParamName>cors.allowed.origins</ParamName>-->
+<!--              <ParamValue>*</ParamValue>-->
+<!--            </InitParam>-->
+<!--            <InitParam>-->
+<!--              <ParamName>cors.allowed.methods</ParamName>-->
+<!--              <ParamValue>*</ParamValue>-->
+<!--            </InitParam>-->
+<!--          </Filter>-->
+<!--          <FilterMapping>-->
+<!--            <FilterName>CorsFilter</FilterName>-->
+<!--            <UrlPattern>/*</UrlPattern>-->
+<!--          </FilterMapping>-->
+<!--        </Context>-->
 
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->

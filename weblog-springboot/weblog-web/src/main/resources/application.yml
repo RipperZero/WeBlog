@@ -17,7 +17,7 @@ spring:
     multipart:
       # 限制上传文件大小
       max-file-size: 10MB
-      
+
 jwt:
   # 签发人
   issuer: quanxiaoha
