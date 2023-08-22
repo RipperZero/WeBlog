@@ -52,7 +52,7 @@ services:
   weblog-front:
     image: weblog-vue3:G08CNXDFXSLZIW
     ports:
-      - 7777:80
+      - 8889:80
     volumes:
       - ./weblog-vue3/nginx/conf:/etc/nginx/conf.d
     networks:
